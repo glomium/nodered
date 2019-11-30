@@ -3,11 +3,16 @@ MAINTAINER Sebastian Braun <sebastian.braun@fh-aachen.de>
 RUN apk add --no-cache ca-certificates
 # base alpine template
 
+WORKDIR /usr/src/app
+RUN apk add --no-cache nodejs npm curl \
+ && npm update -g npm \
+ && npm install -g npm-check-updates
 RUN apk add --no-cache g++ make openssl python2 linux-headers
+# base nodejs template
 
 # package.json contains Node-RED NPM module and node dependencies
 # Add node-red user so we aren't running as root
-COPY docker/nodered/package.json /usr/src/app/
+COPY package.json /usr/src/app/
 RUN ncu --packageFile package.json --error-level 2 \
  && npm install --global --production \
  && npm cache clean --force \
@@ -59,7 +64,7 @@ RUN cd /usr/src/app/node_modules/node-opcua-client \
  && openssl genrsa -out certificates/PKI/own/private/private_key.pem -writerand certificates/PKI/own/private/random.rnd 4096 \
  && node test_helpers/create_certificates.js certificate -s -o certificates/client_selfsigned_cert_1024.pem
 
-COPY docker/nodered/settings.js /usr/src/app/
+COPY settings.js /usr/src/app/
 
 # User configuration directory volume
 VOLUME ["/data"]
