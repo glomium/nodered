@@ -15,6 +15,7 @@
         "node-red-contrib-influxdb": "^0.4.0",
         "node-red-contrib-modbus": "^5.100",
         "node-red-contrib-opcua": "^0.2.52",
+        "node-red-contrib-firebase": "^1.1.1",
         "node-red-dashboard": "^2.19.3",
         "node-red-node-base64": "^0.2.0",
         "node-red-node-msgpack": "^1.2.0",
