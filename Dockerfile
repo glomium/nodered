@@ -23,17 +23,17 @@ RUN ncu --packageFile package.json --error-level 2 \
 USER node-red
 
 # installation produces the following errors:
-
-# npm WARN lifecycle deasync@0.1.16~install: cannot run in wd deasync@0.1.16 node ./build.js (wd=/usr/src/app/node_modules/deasync)
-# npm WARN lifecycle @serialport/bindings@2.0.8~install: cannot run in wd @serialport/bindings@2.0.8 prebuild-install --tag-prefix @serialport/bindings@ || node-gyp rebuild (wd=/usr/src/app/node_modules/@serialport/bindings)
+# npm WARN deprecated request@2.88.0: request has been deprecated, see https://github.com/request/request/issues/3142
+# npm WARN lifecycle @serialport/bindings@9.0.0~install: cannot run in wd @serialport/bindings@9.0.0 prebuild-install --tag-prefix @serialport/bindings@ || node-gyp rebuild (wd=/usr/src/app/node_modules/@serialport/bindings)
+# npm WARN lifecycle @serialport/bindings@8.0.8~install: cannot run in wd @serialport/bindings@8.0.8 prebuild-install --tag-prefix @serialport/bindings@ || node-gyp rebuild (wd=/usr/src/app/node_modules/modbus-serial/node_modules/@serialport/bindings)
 # npm WARN lifecycle bcrypt@3.0.6~install: cannot run in wd bcrypt@3.0.6 node-pre-gyp install --fallback-to-build (wd=/usr/src/app/node_modules/bcrypt)
-# npm WARN lifecycle node-opcua-certificate-manager@2.4.0~postinstall: cannot run in wd node-opcua-certificate-manager@2.4.0 node test_helpers/create_certificates.js certificate -s -o certificates/client_selfsigned_cert_2048.pem (wd=/usr/src/app/node_modules/node-opcua-certificate-manager)
-# npm WARN lifecycle node-opcua-client@2.4.0~postinstall: cannot run in wd node-opcua-client@2.4.0 node test_helpers/create_certificates.js certificate -s -o certificates/client_selfsigned_cert_2048.pem (wd=/usr/src/app/node_modules/node-opcua-client)
-# npm WARN lifecycle node-opcua-server@2.4.1~postinstall: cannot run in wd node-opcua-server@2.4.1 node test_helpers/create_certificates.js certificate -s -o certificates/server_selfsigned_cert_2048.pem (wd=/usr/src/app/node_modules/node-opcua-server)
-# npm WARN lifecycle node-opcua-server-discovery@2.4.1~postinstall: cannot run in wd node-opcua-server-discovery@2.4.1 node test_helpers/create_certificates.js certificate -s -o certificates/server_selfsigned_cert_2048.pem (wd=/usr/src/app/node_modules/node-opcua-server-discovery)
-# npm WARN lifecycle node-opcua-client@0.7.4~postinstall: cannot run in wd node-opcua-client@0.7.4 node test_helpers/create_certificates.js certificate -s -o certificates/client_selfsigned_cert_2048.pem (wd=/usr/src/app/node_modules/node-red-contrib-opcua/node_modules/node-opcua-client)
-# npm WARN lifecycle node-opcua-server@0.7.4~postinstall: cannot run in wd node-opcua-server@0.7.4 node test_helpers/create_certificates.js certificate -s -o certificates/server_selfsigned_cert_2048.pem (wd=/usr/src/app/node_modules/node-red-contrib-opcua/node_modules/node-opcua-server)
-# npm WARN lifecycle node-opcua-server-discovery@0.7.4~postinstall: cannot run in wd node-opcua-server-discovery@0.7.4 node test_helpers/create_certificates.js certificate -s -o certificates/server_selfsigned_cert_2048.pem (wd=/usr/src/app/node_modules/node-red-contrib-opcua/node_modules/node-opcua-server-discovery)
+# npm WARN lifecycle serialport@9.0.0~postinstall: cannot run in wd serialport@9.0.0 node thank-you.js (wd=/usr/src/app/node_modules/serialport)
+# npm WARN lifecycle serialport@8.0.8~postinstall: cannot run in wd serialport@8.0.8 node thank-you.js (wd=/usr/src/app/node_modules/modbus-serial/node_modules/serialport)
+# npm WARN lifecycle node-opcua-client@2.6.6~postinstall: cannot run in wd node-opcua-client@2.6.6 node test_helpers/create_certificates.js certificate -s -o certificates/client_selfsigned_cert_2048.pem (wd=/usr/src/app/node_modules/node-opcua-client)
+# npm WARN lifecycle node-opcua-server@2.6.6~postinstall: cannot run in wd node-opcua-server@2.6.6 node test_helpers/create_certificates.js certificate -s -o certificates/server_selfsigned_cert_2048.pem (wd=/usr/src/app/node_modules/node-opcua-server)
+# npm WARN lifecycle node-opcua-server-discovery@2.6.6~postinstall: cannot run in wd node-opcua-server-discovery@2.6.6 npm run certificate (wd=/usr/src/app/node_modules/node-opcua-server-discovery)
+# npm WARN lifecycle node-red-contrib-modbus@5.13.2~postinstall: cannot run in wd node-red-contrib-modbus@5.13.2 node ./supporter.js (wd=/usr/src/app/node_modules/node-red-contrib-modbus)
+
 
 # This line fixes the installation of nodered-contrib-opcua (above error messages)
 RUN cd /usr/src/app/node_modules/node-opcua-client \
@@ -47,19 +47,19 @@ RUN cd /usr/src/app/node_modules/node-opcua-client \
  && cd /usr/src/app/node_modules/node-opcua-server-discovery \
  && mkdir -p certificates/PKI/own/private \
  && openssl genrsa -out certificates/PKI/own/private/private_key.pem -writerand certificates/PKI/own/private/random.rnd 2048 \
- && node test_helpers/create_certificates.js certificate -s -o certificates/client_selfsigned_cert_2048.pem \
- && cd /usr/src/app/node_modules/node-red-contrib-opcua/node_modules/node-opcua-client \
- && mkdir -p certificates/PKI/own/private \
- && openssl genrsa -out certificates/PKI/own/private/private_key.pem -writerand certificates/PKI/own/private/random.rnd 2048 \
- && node test_helpers/create_certificates.js certificate -s -o certificates/client_selfsigned_cert_2048.pem \
- && cd /usr/src/app/node_modules/node-red-contrib-opcua/node_modules/node-opcua-server \
- && mkdir -p certificates/PKI/own/private \
- && openssl genrsa -out certificates/PKI/own/private/private_key.pem -writerand certificates/PKI/own/private/random.rnd 2048 \
- && node test_helpers/create_certificates.js certificate -s -o certificates/client_selfsigned_cert_2048.pem \
- && cd /usr/src/app/node_modules/node-red-contrib-opcua/node_modules/node-opcua-server-discovery \
- && mkdir -p certificates/PKI/own/private \
- && openssl genrsa -out certificates/PKI/own/private/private_key.pem -writerand certificates/PKI/own/private/random.rnd 2048 \
  && node test_helpers/create_certificates.js certificate -s -o certificates/client_selfsigned_cert_2048.pem
+#&& cd /usr/src/app/node_modules/node-red-contrib-opcua/node_modules/node-opcua-client \
+#&& mkdir -p certificates/PKI/own/private \
+#&& openssl genrsa -out certificates/PKI/own/private/private_key.pem -writerand certificates/PKI/own/private/random.rnd 2048 \
+#&& node test_helpers/create_certificates.js certificate -s -o certificates/client_selfsigned_cert_2048.pem \
+#&& cd /usr/src/app/node_modules/node-red-contrib-opcua/node_modules/node-opcua-server \
+#&& mkdir -p certificates/PKI/own/private \
+#&& openssl genrsa -out certificates/PKI/own/private/private_key.pem -writerand certificates/PKI/own/private/random.rnd 2048 \
+#&& node test_helpers/create_certificates.js certificate -s -o certificates/client_selfsigned_cert_2048.pem \
+#&& cd /usr/src/app/node_modules/node-red-contrib-opcua/node_modules/node-opcua-server-discovery \
+#&& mkdir -p certificates/PKI/own/private \
+#&& openssl genrsa -out certificates/PKI/own/private/private_key.pem -writerand certificates/PKI/own/private/random.rnd 2048 \
+#&& node test_helpers/create_certificates.js certificate -s -o certificates/client_selfsigned_cert_2048.pem
 
 COPY settings.js /usr/src/app/
 
