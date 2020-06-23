@@ -19,7 +19,7 @@ COPY package.json /usr/src/app/
 RUN ncu --packageFile package.json --error-level 2 \
  && npm install --global --production \
  && npm cache clean --force \
- && adduser --home /usr/src/app --no-create-home --disabled-password --disabled-login node-red \
+ && adduser --home /usr/src/app --no-create-home --disabled-password --disabled-login -q node-red \
  && mkdir /data \
  && chown -R node-red:node-red /data \
  && chown -R node-red:node-red /usr/src/app
