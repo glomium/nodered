@@ -10,14 +10,14 @@
     },
     "private": true,
     "dependencies": {
-        "node-opcua": "^2.4.3",
-        "node-red": "^1.0.3",
-        "node-red-contrib-influxdb": "^0.4.0",
-        "node-red-contrib-modbus": "^5.100",
-        "node-red-contrib-opcua": "^0.2.52",
-        "node-red-dashboard": "^2.19.3",
-        "node-red-node-base64": "^0.2.0",
-        "node-red-node-msgpack": "^1.2.0",
-        "node-red-node-random": "^0.1.4"
+        "node-opcua": "^2.7.0",
+        "node-red": "^1.0.6",
+        "node-red-contrib-influxdb": "^0.4.1",
+        "node-red-contrib-modbus": "^5.13.2",
+        "node-red-contrib-opcua": "^0.2.64",
+        "node-red-dashboard": "^2.22.1",
+        "node-red-node-base64": "^0.2.1",
+        "node-red-node-msgpack": "^1.2.1",
+        "node-red-node-random": "^0.2.0"
     }
 }
